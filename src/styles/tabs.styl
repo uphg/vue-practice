@@ -1,11 +1,10 @@
 $tab-gap = 0 12px;
 
 .tu-tabs
-  border 1px solid #efeff5
   &-nav
     display flex
     gap $tab-gap
-    border-bottom 1px solid #d9d9d9    
+    border-bottom 1px solid var(--border-color)   
   &-nav__wrap
     position relative
   &-tab__wrap
@@ -30,3 +29,6 @@ $tab-gap = 0 12px;
   &-nav__prefix, &-nav__suffix
     display flex
     align-items center
+  
+  &-content
+    padding-top 0.75rem
