@@ -1,0 +1,32 @@
+$tab-gap = 0 12px;
+
+.tu-tabs
+  border 1px solid #efeff5
+  &-nav
+    display flex
+    gap $tab-gap
+    border-bottom 1px solid #d9d9d9    
+  &-nav__wrap
+    position relative
+  &-tab__wrap
+    display flex
+    gap $tab-gap
+  &-tab__item
+    padding 10px 0
+    cursor pointer
+    &-label
+      transition color 0.25s
+    &.active &-label
+      color #18a058
+  &-bar
+    width 60px
+    height 2px
+    background-color #18a058
+    margin-bottom -1px
+    position absolute
+    bottom 0
+    transition width 0.25s, left 0.25s 
+  
+  &-nav__prefix, &-nav__suffix
+    display flex
+    align-items center
