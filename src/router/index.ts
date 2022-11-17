@@ -21,6 +21,11 @@ const router = createRouter({
       path: '/tabs',
       name: 'TabsDemo',
       component: () => import('../views/Tabs.vue')
+    },
+    {
+      path: '/pagination',
+      name: 'PaginationDemo',
+      component: () => import('../views/Pagination.vue')
     }
   ]
 })

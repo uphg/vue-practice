@@ -14,5 +14,6 @@ const sidebars = ref([
   { title: '首页', path: '/' },
   { title: '关于我', path: '/about' },
   { title: 'Tabs 组件', path: '/tabs' },
+  { title: 'Pagination 组件', path: '/pagination' },
 ])
 </script>

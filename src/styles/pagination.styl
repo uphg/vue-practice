@@ -1,0 +1,17 @@
+$pagin-gap = 0.5rem
+
+.tu-pagination
+  display flex
+  gap $pagin-gap
+  &-button
+    background-color #fff
+    cursor pointer
+    border 1px solid var(--border-color)
+    border-radius 3px
+    min-width 28px
+    height 28px
+    padding 0 0.25rem
+    &.active
+      color var(--color-primary)
+      border-color var(--color-primary) 
+
