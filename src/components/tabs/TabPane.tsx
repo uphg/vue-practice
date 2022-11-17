@@ -15,7 +15,7 @@ export const tabPaneProps = {
 }
 
 const TabPane = defineComponent({
-  name: 'ETabPane',
+  name: 'TuTabPane',
   props: tabPaneProps,
   [TAGKEY]: 'TabPane',
   setup(_props, context) {

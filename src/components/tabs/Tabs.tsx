@@ -16,7 +16,7 @@ const tabsProps = {
 }
 
 const Tabs = defineComponent({
-  name: 'ETabs',
+  name: 'TuTabs',
   props: tabsProps,
   setup(props, context: SetupContext<{}>) {
     const { slots } = context

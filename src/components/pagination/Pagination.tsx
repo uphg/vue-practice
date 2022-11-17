@@ -1,4 +1,7 @@
 import { computed, defineComponent, type PropType } from "vue"
+import ArrowLeftRound from '../icons/ArrowLeftRound.vue'
+import ArrowRightRound from '../icons/ArrowRightRound.vue'
+import Ellipsis from '../icons/Ellipsis.vue'
 import { map } from '../../utils'
 
 const paginationProps = {
@@ -45,26 +48,30 @@ const Pagination = defineComponent({
     const handlePrev = () => {
       const prev = props.current - 1
       if (prev >= 1) {
-        emit('update:current', props.current - 1)
+        emit('update:current', prev >= 1 ? prev : 1)
       }
     }
 
     const handleNext = () => {
       const next = props.current + 1
       if (next <= totalPages.value) {
-        emit('update:current', props.current + 1)
+        emit('update:current', next <= totalPages.value ? next: totalPages.value)
       }
     }
     return () => (
       <div class="tu-pagination">
-        {'hi'}
-        {JSON.stringify(pagings.value)}
-        <button class="tu-pagination-prev tu-pagination-button" disabled={props.current <= 1} onClick={handlePrev}>{'<'}</button>
+        <button class="tu-pagination-prev tu-pagination-button" disabled={props.current <= 1} onClick={handlePrev}>
+          <ArrowLeftRound class="tu-pagination-icon"/>
+        </button>
         <button
           class={['tu-pagination-item tu-pagination-button', { active: 1 === props.current }]}
           onClick={() => handleCurrent(1)}
           >1</button>
-        {props.current > 4 && <button class="tu-pagination-button">...</button>}
+        {props.current > 4 && (
+          <button class="tu-pagination-button" onClick={() => handleCurrent(props.current - 3)}>
+            <Ellipsis class="tu-pagination-icon"/>
+          </button>
+        )}
         {map<number, JSX.Element>(pagings.value, (item, index) => (
           <button
             key={index}
@@ -72,12 +79,18 @@ const Pagination = defineComponent({
             onClick={() => handleCurrent(item)}
           >{item}</button>
         ))}
-        {props.current < (totalPages.value - 4) && <button class="tu-pagination-button">...</button>}
+        {props.current < (totalPages.value - 4) && (
+          <button class="tu-pagination-button" onClick={() => handleCurrent(props.current + 3)}>
+            <Ellipsis class="tu-pagination-icon"/>
+          </button>
+        )}
         <button
           class={['tu-pagination-item tu-pagination-button', { active: totalPages.value === props.current }]}
           onClick={() => handleCurrent(totalPages.value)}
           >{totalPages.value}</button>
-        <button class="tu-pagination-next tu-pagination-button" disabled={props.current >= totalPages.value} onClick={handleNext}>{'>'}</button>
+        <button class="tu-pagination-next tu-pagination-button" disabled={props.current >= totalPages.value} onClick={handleNext}>
+          <ArrowRightRound class="tu-pagination-icon"/>
+        </button>
       </div>
     )
   }
