@@ -26,6 +26,10 @@ const paginationProps = {
   }
 }
 
+type PagingItem = {
+  value: number, type: number
+}
+
 const Pagination = defineComponent({
   name: 'TuPagination',
   props: paginationProps,
@@ -36,19 +40,30 @@ const Pagination = defineComponent({
 
     const pagings = computed(() => {
       const { current } = props
-      const result = []
-      let count = current - 2 - 1
-      while (++count <= current + 2) if(count > 1 && count < totalPages.value) {
-        result.push(count)
+      const result = [{ value: 1, type: 0 }]
+      const start = current <= 5
+        ? 2
+        : current >= (totalPages.value - 4)
+          ? totalPages.value - 7
+          : current - 3
+      let count = start
+      let index = -1
+      while (++index <= 6) {
+        if ((current - 5) >= 1 && index === 0) {
+          result.push({ value: count, type: -1 })
+        } else if ((current + 5) <= totalPages.value && index === 6) {
+          result.push({ value: count, type: 1 })
+        } else {
+          result.push({ value: count, type: 0 })
+        }
+        count += 1
       }
+      result.push({ value: totalPages.value, type: 0 })
       return result
     })
 
-    const fastRewindHover = ref(false)
-    const fastForwardHover = ref(false)
-
-    const handleCurrent = (value: number) => {
-      emit('update:current', value)
+    const handleCurrent = (item: PagingItem) => {
+      emit('update:current', item.value)
     }
 
     const handlePrev = () => {
@@ -66,38 +81,25 @@ const Pagination = defineComponent({
     }
     return () => (
       <div class="tu-pagination">
-        <button class="tu-pagination-prev tu-pagination-button" disabled={props.current <= 1} onClick={handlePrev}>
-          <Icon class="tu-pagination-icon" is={ArrowLeftRound}/>
+        <button class="tu-pagination-button tu-pagination-prev" disabled={props.current <= 1} onClick={handlePrev}>
+          <Icon is={ArrowLeftRound}/>
         </button>
-        <button
-          class={['tu-pagination-item tu-pagination-button', { active: 1 === props.current }]}
-          onClick={() => handleCurrent(1)}
-          >1</button>
-        {props.current > 4 && (
-          <button class="tu-pagination-button tu-pagination-button-ellipsis" onClick={() => handleCurrent(props.current - 3)}>
-            <Icon class="tu-pagination-icon" is={ArrowFastRewind}/>
-            <Icon class="tu-pagination-icon" is={Ellipsis}/>
-          </button>
-        )}
-        {map<number, JSX.Element>(pagings.value, (item, index) => (
-          <button
-            key={index}
-            class={['tu-pagination-item tu-pagination-button', { active: item === props.current }]}
-            onClick={() => handleCurrent(item)}
-          >{item}</button>
-        ))}
-        {props.current < (totalPages.value - 4) && (
-          <button class="tu-pagination-button tu-pagination-button-ellipsis" onClick={() => handleCurrent(props.current + 3)}>
-            <Icon class="tu-pagination-icon" is={ArrowFastForward}/>
-            <Icon class="tu-pagination-icon" is={Ellipsis}/>
-          </button>
-        )}
-        <button
-          class={['tu-pagination-item tu-pagination-button', { active: totalPages.value === props.current }]}
-          onClick={() => handleCurrent(totalPages.value)}
-          >{totalPages.value}</button>
-        <button class="tu-pagination-next tu-pagination-button" disabled={props.current >= totalPages.value} onClick={handleNext}>
-          <Icon class="tu-pagination-icon" is={ArrowRightRound}/>
+        {pagings.value.map((item, index) => item.type === 0
+          ? (<button
+              key={index}
+              class={['tu-pagination-button tu-pagination-item', { active: item.value === props.current }]}
+              onClick={() => handleCurrent(item)}
+            >{item.value}</button>)
+          : item.type === -1 || item.type === 1
+            ? (<button
+                class="tu-pagination-button tu-pagination-button-ellipsis"
+                onClick={() => handleCurrent({ value: props.current + item.type * 3, type: 0 })}>
+                <Icon is={item.type === -1 ? ArrowFastRewind : ArrowFastForward}/>
+                <Icon is={Ellipsis}/>
+              </button>)
+            : null)}
+        <button class="tu-pagination-button tu-pagination-next" disabled={props.current >= totalPages.value} onClick={handleNext}>
+          <Icon is={ArrowRightRound}/>
         </button>
       </div>
     )

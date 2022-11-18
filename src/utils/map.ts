@@ -1,5 +1,5 @@
 function map<T, U>(
-  array: T[] | number,
+  array: T[],
   callback: (value: T | number, index: number, array: T[] | number) => U
 ): U[] {
   const isNumber = typeof array === 'number'
