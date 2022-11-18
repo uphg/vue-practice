@@ -14,14 +14,40 @@ $pagin-gap = 0.5rem
     display flex
     align-items center
     justify-content center
-    &.active
+    transition color 0.25s, border-color 0.25s
+    &.active, &:hover
       color var(--color-primary)
-      border-color var(--color-primary) 
-    &:disabled .tu-pagination-icon
+      border-color var(--color-primary)
+    &:disabled
       color #afb0b1
-  &-icon
+      border-color var(--border-color)
+    &-ellipsis
+      position relative
+      & > .tu-pagination-icon
+        position absolute
+        top 0
+        left 0
+        right 0
+        bottom 0
+        width 100%
+        height 100%
+        display flex
+        justify-content center
+        align-items center
+      &:hover
+        .tu-icon__fast-rewind, .tu-icon__fast-forward
+          opacity 1
+        .tu-icon__ellipsis
+          opacity 0
+  .tu-icon__ellipsis
     width 1em
     height 1em
-    fill currentColor
+    opacity 1
+    transition opacity 0.25s
+  .tu-icon__fast-rewind, .tu-icon__fast-forward
+    width 12px
+    height 12px 
+    opacity 0
+    transition opacity 0.25s
 
 

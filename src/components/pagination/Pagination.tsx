@@ -1,6 +1,9 @@
-import { computed, defineComponent, type PropType } from "vue"
+import { computed, defineComponent, ref, type PropType } from "vue"
+import Icon from '../icon/Icon'
 import ArrowLeftRound from '../icons/ArrowLeftRound.vue'
 import ArrowRightRound from '../icons/ArrowRightRound.vue'
+import ArrowFastRewind from "../icons/ArrowFastRewind.vue"
+import ArrowFastForward from "../icons/ArrowFastForward.vue"
 import Ellipsis from '../icons/Ellipsis.vue'
 import { map } from '../../utils'
 
@@ -41,6 +44,9 @@ const Pagination = defineComponent({
       return result
     })
 
+    const fastRewindHover = ref(false)
+    const fastForwardHover = ref(false)
+
     const handleCurrent = (value: number) => {
       emit('update:current', value)
     }
@@ -61,15 +67,16 @@ const Pagination = defineComponent({
     return () => (
       <div class="tu-pagination">
         <button class="tu-pagination-prev tu-pagination-button" disabled={props.current <= 1} onClick={handlePrev}>
-          <ArrowLeftRound class="tu-pagination-icon"/>
+          <Icon class="tu-pagination-icon" is={ArrowLeftRound}/>
         </button>
         <button
           class={['tu-pagination-item tu-pagination-button', { active: 1 === props.current }]}
           onClick={() => handleCurrent(1)}
           >1</button>
         {props.current > 4 && (
-          <button class="tu-pagination-button" onClick={() => handleCurrent(props.current - 3)}>
-            <Ellipsis class="tu-pagination-icon"/>
+          <button class="tu-pagination-button tu-pagination-button-ellipsis" onClick={() => handleCurrent(props.current - 3)}>
+            <Icon class="tu-pagination-icon" is={ArrowFastRewind}/>
+            <Icon class="tu-pagination-icon" is={Ellipsis}/>
           </button>
         )}
         {map<number, JSX.Element>(pagings.value, (item, index) => (
@@ -80,8 +87,9 @@ const Pagination = defineComponent({
           >{item}</button>
         ))}
         {props.current < (totalPages.value - 4) && (
-          <button class="tu-pagination-button" onClick={() => handleCurrent(props.current + 3)}>
-            <Ellipsis class="tu-pagination-icon"/>
+          <button class="tu-pagination-button tu-pagination-button-ellipsis" onClick={() => handleCurrent(props.current + 3)}>
+            <Icon class="tu-pagination-icon" is={ArrowFastForward}/>
+            <Icon class="tu-pagination-icon" is={Ellipsis}/>
           </button>
         )}
         <button
@@ -89,7 +97,7 @@ const Pagination = defineComponent({
           onClick={() => handleCurrent(totalPages.value)}
           >{totalPages.value}</button>
         <button class="tu-pagination-next tu-pagination-button" disabled={props.current >= totalPages.value} onClick={handleNext}>
-          <ArrowRightRound class="tu-pagination-icon"/>
+          <Icon class="tu-pagination-icon" is={ArrowRightRound}/>
         </button>
       </div>
     )
