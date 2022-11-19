@@ -1,8 +1,7 @@
 import { defineComponent, h, type Component, type PropType } from "vue";
 
 const iconProps = {
-  is: Object as PropType<Component>,
-  iconClass: String as PropType<string>
+  is: Object as PropType<Component>
 }
 
 const Icon = defineComponent({
