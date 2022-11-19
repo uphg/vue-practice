@@ -1,5 +1,8 @@
 <template>
-  <tu-pagination v-model:current="current" :total="201" :page-size="10" />
+  <h2>Pagination 分页</h2>
+  <Demo>
+    <tu-pagination v-model:current="current" :total="201" :page-size="10" />
+  </Demo>
 </template>
 
 <script setup lang="ts">

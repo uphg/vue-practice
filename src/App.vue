@@ -11,9 +11,9 @@ import { RouterView } from 'vue-router'
 import Sidebar from './components/Sidebar'
 
 const sidebars = ref([
-  { title: '首页', path: '/' },
+  { title: 'Vue Practice', path: '/' },
   { title: '关于我', path: '/about' },
-  { title: 'Tabs 组件', path: '/tabs' },
-  { title: 'Pagination 组件', path: '/pagination' },
+  { title: 'Tabs 标签页', path: '/tabs' },
+  { title: 'Pagination 分页', path: '/pagination' },
 ])
 </script>
