@@ -12,7 +12,7 @@ import Sidebar from './components/Sidebar'
 
 const sidebars = ref([
   { title: 'Vue Practice', path: '/' },
-  { title: '关于我', path: '/about' },
+  // { title: '关于我', path: '/about' },
   { title: 'Tabs 标签页', path: '/tabs' },
   { title: 'Pagination 分页', path: '/pagination' },
 ])
