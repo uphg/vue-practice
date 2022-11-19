@@ -2,6 +2,8 @@
 
 Vue Practice Notes
 
+Effect preview：[]()
+
 ## Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
