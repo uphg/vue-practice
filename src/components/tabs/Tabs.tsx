@@ -1,8 +1,6 @@
 import { defineComponent, ref, watchEffect, type PropType, type SetupContext, type VNode } from "vue";
 import { renderComponent } from "@/utils/renderComponent";
-
-// 获取相对当前客户端位置的距离
-export const getClientRect = (el: HTMLElement | null, property: string) => el?.getBoundingClientRect()[property as keyof DOMRect] as (number | undefined)
+import { getClientRect } from '@/utils/getClientRect'
 
 const tabsProps = {
   value: {
@@ -29,8 +27,8 @@ const Tabs = defineComponent({
     }
 
     const updateBar = () => {
-      const left = getClientRect(checkedRef.value, 'left') || 0
-      const wrapLeft = getClientRect(tabWrapRef.value, 'left') || 0
+      const left = (getClientRect(checkedRef.value, 'left') || 0) as number
+      const wrapLeft = (getClientRect(tabWrapRef.value, 'left') || 0) as number
       const width = getClientRect(checkedRef.value, 'width')
       const bar = barRef.value
       if(bar) {

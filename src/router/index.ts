@@ -23,6 +23,11 @@ const router = createRouter({
       path: '/pagination',
       name: 'PaginationDemo',
       component: () => import('../views/Pagination.vue')
+    },
+    {
+      path: '/tooltip',
+      name: 'TooltipDemo',
+      component: () => import('../views/Tooltip.vue')
     }
   ]
 })

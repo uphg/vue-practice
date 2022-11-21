@@ -1,0 +1,41 @@
+.tu-prompt
+  padding 8px 12px
+  border-radius 3px
+  background-color #262626
+  min-height 1em
+  min-width 1em
+  position absolute
+  z-index 1000
+  color #fff
+
+/* --- 动画样式 */
+.prompt-fade-enter-active {
+  animation: tu-prompt-fade-in var(--transition-time);
+}
+
+.prompt-fade-leave-active {
+  animation: tu-prompt-fade-out var(--transition-time);
+}
+
+@keyframes tu-prompt-fade-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    stable()
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes tu-prompt-fade-out {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
