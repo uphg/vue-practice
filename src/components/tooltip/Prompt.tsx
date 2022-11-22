@@ -9,8 +9,11 @@ const Prompt = defineComponent({
   emits: ['update:visible'],
   setup(props, context) {
     const promptRef = ref<HTMLElement | null>(null)
-    const top = computed(() => `${props.position?.top - (promptRef.value?.offsetHeight || 0) - 8}px`)
-    const left = computed(() => `${props.position?.left - ((promptRef.value?.offsetWidth || 0) / 2)}px`)
+    const halfWidth = computed(() => (promptRef.value?.offsetWidth || 0) / 2)
+    const style = computed(() => ({
+      top: `${props.position?.top - (promptRef.value?.offsetHeight || 0) - 8}px`,
+      left: `${props.position?.left - halfWidth.value}px`
+    }))
     return () => (
       <Teleport to="body">
         <Transition
@@ -20,8 +23,13 @@ const Prompt = defineComponent({
             default: () => props.visible
             ? (<div
                 ref={promptRef} class="tu-prompt"
-                style={{ top: top.value, left: left.value }}
-                >{context.slots.default?.()}</div>)
+                style={style.value}
+                >
+                  <div class="tu-prompt__content">{context.slots.default?.()}</div>
+                  <div class="tu-prompt-arrow-wrapper" style={{ left: `${halfWidth.value}px` }}>
+                    <div class="tu-prompt-arrow"></div> 
+                  </div>
+                </div>)
             : null
           }}
         </Transition>
